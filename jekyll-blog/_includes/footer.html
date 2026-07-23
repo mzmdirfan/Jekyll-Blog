@@ -1,0 +1,60 @@
+<footer class="site-footer">
+  <div class="footer-container container">
+    <div class="footer-grid">
+      <!-- Newsletter block -->
+      <div class="footer-column newsletter-column">
+        <h4>Stay in the Loop</h4>
+        <p>Subscribe for high-quality developer resources, design systems, and frontend insights.</p>
+        <form class="newsletter-form" id="newsletter-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Subscribed successfully! (Mock subscription)');">
+          <div class="form-group-row">
+            <input type="email" placeholder="Your email address..." aria-label="Email address" required>
+            <button type="submit" class="btn btn-subscribe">Subscribe</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Quick links -->
+      <div class="footer-column links-column">
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          {% for link in site.navigation %}
+            <li><a href="{{ link.url | relative_url }}">{{ link.title }}</a></li>
+          {% endfor %}
+          <li><a href="{{ '/feed.xml' | relative_url }}" target="_blank">RSS Feed</a></li>
+        </ul>
+      </div>
+
+      <!-- About bio / socials -->
+      <div class="footer-column social-column">
+        <h4>Connect</h4>
+        <p>Follow along on GitHub, Twitter, and LinkedIn for updates, open source projects, and tech tips.</p>
+        <div class="footer-social-links">
+          {% if site.author.github %}
+            <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+              <span>GitHub</span>
+            </a>
+          {% endif %}
+          {% if site.author.twitter %}
+            <a href="https://twitter.com/{{ site.author.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile">
+              <span>Twitter</span>
+            </a>
+          {% endif %}
+          {% if site.author.linkedin %}
+            <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+              <span>LinkedIn</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright-text">&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+      <button id="back-to-top" class="back-to-top-btn" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</footer>

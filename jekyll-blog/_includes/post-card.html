@@ -1,0 +1,55 @@
+{% assign post = include.post %}
+{% assign words = post.content | strip_html | number_of_words %}
+{% assign read_time = words | divided_by: 180 %}
+{% if read_time == 0 %}
+  {% assign read_time = 1 %}
+{% endif %}
+
+<article class="post-card" 
+         data-title="{{ post.title | escape | downcase }}"
+         data-tags="{% for tag in post.tags %}{{ tag | slugify }} {% endfor %}"
+         data-excerpt="{{ post.subtitle | default: post.excerpt | strip_html | escape | downcase }}">
+  
+  {% if post.image %}
+    <div class="post-card-image-wrapper">
+      <a href="{{ post.url | relative_url }}">
+        <img class="post-card-image" src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+      </a>
+    </div>
+  {% else %}
+    <!-- Generates a beautiful dynamic gradient placeholder cover -->
+    <div class="post-card-image-wrapper placeholder-gradient">
+      <a href="{{ post.url | relative_url }}" class="pattern-link">
+        <span class="pattern-text">{ code }</span>
+      </a>
+    </div>
+  {% endif %}
+
+  <div class="post-card-content">
+    <div class="post-card-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+      <span class="meta-dot">•</span>
+      <span>{{ read_time }} min read</span>
+    </div>
+
+    <h3 class="post-card-title">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </h3>
+
+    <p class="post-card-excerpt">
+      {% if post.subtitle %}
+        {{ post.subtitle }}
+      {% else %}
+        {{ post.excerpt | strip_html | truncatewords: 20 }}
+      {% endif %}
+    </p>
+
+    {% if post.tags.size > 0 %}
+      <div class="post-card-tags">
+        {% for tag in post.tags %}
+          <span class="card-tag">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>
