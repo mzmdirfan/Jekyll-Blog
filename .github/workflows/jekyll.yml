@@ -27,7 +27,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./  # <-- Changed from ./jekyll-blog to ./
+          source: ./
           destination: ./_site
 
       - name: Upload artifact
@@ -39,5 +39,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    id: deployment
-    uses: actions/deploy-pages@v4
+    steps:          # <-- Added this steps wrapper
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
