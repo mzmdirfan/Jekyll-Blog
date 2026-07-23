@@ -32,15 +32,8 @@ layout: default
           <span class="filter-label">Filter by Topic:</span>
           <div class="tag-filter-pills" id="tag-filters">
             <button class="tag-filter-btn active" data-filter="all">All</button>
-            {% assign tags = "" | split: "" %}
-            {% for post in site.posts %}
-              {% for tag in post.tags %}
-                {% assign tags = tags | push: tag %}
-              {% endfor %}
-            {% endfor %}
-            {% assign unique_tags = tags | uniq | sort %}
-            {% for tag in unique_tags %}
-              <button class="tag-filter-btn" data-filter="{{ tag | slugify }}">{{ tag }}</button>
+            {% for tag in site.tags %}
+              <button class="tag-filter-btn" data-filter="{{ tag[0] | slugify }}">{{ tag[0] }}</button>
             {% endfor %}
           </div>
         </div>
